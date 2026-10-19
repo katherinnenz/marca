@@ -58,7 +58,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold)}
   <div class="brand">Katherinne Núñez<small>Estrategia de marca</small></div>
   <div class="eyebrow">Antes de nuestra llamada</div>
   <h1>Cuéntame sobre tu <em>Instagram</em></h1>
-  <p class="sub">Con estos datos llego a la llamada con tu caso ya revisado, y los 30 minutos se usan para lo importante, no para preguntas básicas. Te toma unos 3 minutos. Al terminar eliges tu horario.</p>
+  <p class="sub" id="sub">Con estos datos llego a la llamada con tu caso ya revisado, y los 30 minutos se usan para lo importante, no para preguntas básicas. Te toma unos 3 minutos. Al terminar eliges tu horario.</p>
 
   <div class="card" id="card">
     <form id="f" novalidate>
@@ -111,7 +111,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold)}
 
 <script>
 // === AJUSTA ESTO (usa los mismos datos que en index.html) ===
-const BOOKING_URL  = "";  // enlace de tu agenda de Google Calendar / Cal.com. Aparece solo después de llenar el formulario
+const BOOKING_URL  = "https://calendar.app.google/b1HvDK1ih643CgzNA";  // tu agenda. Solo la ven quienes llegan desde el diagnóstico eligiendo asesoría 1:1
 const ACCESS_KEY   = "a7f931ad9bae4b66b8a254ad8a107539";
 const FORM_URL     = "https://splitforms.com/api/submit";
 const SUPABASE_URL = "https://kdxfiqapaptdmjmjpfrh.supabase.co";
@@ -127,6 +127,15 @@ const q = new URLSearchParams(location.search);
 if(q.get('name')) $('nombre').value = q.get('name');
 if(q.get('email')) $('email').value = q.get('email');
 if(q.get('wa')) $('wa').value = q.get('wa');
+
+// Solo quien eligió "asesoría 1:1" en el diagnóstico (index.html agrega ref=asesoria) ve la agenda
+const ASESORIA = q.get('ref')==='asesoria';
+const BTN_TXT = ASESORIA ? 'Enviar y elegir mi horario →' : 'Enviar →';
+$('btn').textContent = BTN_TXT;
+if(!ASESORIA){
+  $('sub').textContent = 'Con estos datos reviso tu caso antes de escribirte. Te toma unos 3 minutos.';
+  $('doneTxt').textContent = 'Ya tengo tus datos. Los reviso y te escribo por WhatsApp o correo.';
+}
 
 $('f').addEventListener('submit', async e=>{
   e.preventDefault(); const err=$('err'); err.textContent='';
@@ -146,15 +155,15 @@ $('f').addEventListener('submit', async e=>{
   const sb = fetch(SUPABASE_URL+'/rest/v1/previa_llamada',{method:'POST',headers:sbHeaders(),body:JSON.stringify(row)}).catch(()=>{});
   const mail = fetch(FORM_URL,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(Object.assign({access_key:ACCESS_KEY,from_name:'Preparación de llamada',subject:'Preparación de llamada: '+v.instagram+' ('+v.nombre+')',botcheck:''},row))}).then(r=>r.json()).catch(()=>({success:false}));
   const [,res] = await Promise.all([sb,mail]);
-  if(res && res.success===false){ err.textContent='No se pudo enviar. Revisa tu conexión e inténtalo de nuevo.'; $('btn').disabled=false; $('btn').textContent='Enviar y elegir mi horario →'; return; }
+  if(res && res.success===false){ err.textContent='No se pudo enviar. Revisa tu conexión e inténtalo de nuevo.'; $('btn').disabled=false; $('btn').textContent=BTN_TXT; return; }
 
   // Mostrar el enlace solo ahora
   const msg = 'Hola Katherinne, soy '+v.nombre.split(' ')[0]+'. Ya llené el formulario de preparación para mi llamada.';
   $('wab').href = WA_NUMBER ? 'https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(msg) : WA_LINK;
-  if(BOOKING_URL){
+  if(BOOKING_URL && ASESORIA){
     const u=new URL(BOOKING_URL); u.searchParams.set('name',v.nombre); u.searchParams.set('email',v.email);
     $('book').href=u.toString(); $('book').style.display='flex';
-  } else { $('doneTxt').textContent='Ya tengo tus datos. Te escribo por WhatsApp o correo para coordinar el día y la hora de tu llamada.'; }
+  } else if(ASESORIA){ $('doneTxt').textContent='Ya tengo tus datos. Te escribo por WhatsApp o correo para coordinar el día y la hora de tu llamada.'; }
   $('f').style.display='none'; $('done').style.display='block'; $('done').focus(); window.scrollTo({top:0,behavior:'smooth'});
 });
 function sbHeaders(){ const h={apikey:SUPABASE_KEY,'Content-Type':'application/json',Prefer:'return=minimal'}; if(SUPABASE_KEY.startsWith('eyJ')) h.Authorization='Bearer '+SUPABASE_KEY; return h; }
