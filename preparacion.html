@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Antes de nuestra llamada | Katherinne Núñez</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#1E2114">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#1E2114;--text:#F3EEDF;--muted:#B8B198;--gold:#D4AF5F;--gold-h:#E2C277;--border:rgba(255,255,255,.12);--heading:"Manrope",sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:radial-gradient(ellipse at 18% 0%,rgba(142,118,64,.18),transparent 45%),var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{width:min(640px,calc(100% - 36px));margin:0 auto;padding:34px 0 80px}
+.brand{font-family:var(--heading);font-weight:800;letter-spacing:-.5px;margin-bottom:34px}
+.brand small{display:block;color:var(--muted);font:500 9px "DM Sans";letter-spacing:2px;text-transform:uppercase}
+.eyebrow{color:var(--gold);font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;margin-bottom:14px}
+h1{font-family:var(--heading);font-weight:700;font-size:clamp(32px,8vw,46px);line-height:1.1;letter-spacing:-1.4px}
+h1 em{color:var(--gold);font-style:normal}
+.sub{color:#CBC5B0;font-size:15px;line-height:1.8;margin:18px 0 28px}
+.how{border:1px solid rgba(212,175,95,.3);background:rgba(212,175,95,.06);border-radius:12px;padding:15px 17px;font-size:13px;color:#EFE9D6;margin-bottom:22px}
+.how b{color:var(--gold)}
+.card{padding:30px;border:1px solid rgba(255,255,255,.13);border-radius:22px;background:linear-gradient(145deg,#2E3322,#23271A);box-shadow:0 28px 80px rgba(0,0,0,.2)}
+.sec{font-family:var(--heading);font-size:20px;font-weight:700;letter-spacing:-.5px;margin:28px 0 14px}
+.sec:first-child{margin-top:0}
+.field{display:grid;gap:7px;margin-bottom:15px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+label{color:#EFE9D6;font-size:12px;font-weight:600}
+input,select,textarea{width:100%;min-height:49px;padding:12px 14px;border:1px solid var(--border);border-radius:8px;background:rgba(15,16,8,.3);color:var(--text);font:inherit;font-size:14px}
+textarea{min-height:96px;resize:vertical}
+select option{background:#23271A}
+input::placeholder,textarea::placeholder{color:#8C866F}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold)}
+.hint{color:#A39C85;font-size:11.5px}
+.consent{display:flex;gap:10px;align-items:flex-start;margin:20px 0;color:#BDB6A0;font-size:12px;cursor:pointer}
+.consent input{width:16px;min-height:0;height:16px;margin-top:3px;accent-color:var(--gold);flex:none}
+.btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:53px;border:0;border-radius:9px;background:var(--gold);color:var(--bg);font:700 14px "DM Sans";text-decoration:none;cursor:pointer;transition:background .2s,transform .2s}
+.btn:hover{background:var(--gold-h);transform:translateY(-1px)}
+.btn[disabled]{opacity:.6;cursor:wait}
+.btn.ghost{background:transparent;color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold);margin-top:12px}
+.err{color:#ffb4a2;font-size:13px;min-height:1.4em;margin-bottom:10px}
+.hp{position:absolute;left:-9999px}
+.done{display:none;text-align:center;padding:10px 0}
+.done h2{font-family:var(--heading);font-size:32px;letter-spacing:-1px;margin-bottom:12px}
+.done p{color:#CBC5B0;font-size:14px;margin-bottom:22px}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+@media(max-width:560px){.row{grid-template-columns:1fr}.card{padding:22px 18px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="brand">Katherinne Núñez<small>Estrategia de marca</small></div>
+  <div class="eyebrow">Antes de nuestra llamada</div>
+  <h1>Cuéntame sobre tu <em>Instagram</em></h1>
+  <p class="sub">Con estos datos llego a la llamada con tu caso ya revisado, y los 30 minutos se usan para lo importante, no para preguntas básicas. Te toma unos 3 minutos. Al terminar eliges tu horario.</p>
+
+  <div class="card" id="card">
+    <form id="f" novalidate>
+      <div class="how"><b>¿Dónde veo mis números?</b><br>En Instagram: tu perfil → <b>Panel profesional</b> → <b>Ver todo</b> en Insights → elige <b>Últimos 30 días</b>. Los nombres pueden variar un poco según tu versión de la app. Si algún dato no lo encuentras, déjalo en blanco.</div>
+
+      <p class="sec">Tú</p>
+      <div class="field"><label for="nombre">Nombre</label><input id="nombre" autocomplete="name"></div>
+      <div class="row">
+        <div class="field"><label for="email">Correo</label><input id="email" type="email" autocomplete="email"></div>
+        <div class="field"><label for="wa">WhatsApp</label><input id="wa" type="tel" inputmode="tel" autocomplete="tel" placeholder="+1 809 000 0000"></div>
+      </div>
+
+      <p class="sec">Tu Instagram · últimos 30 días</p>
+      <div class="field"><label for="instagram">Tu usuario de Instagram</label><input id="instagram" placeholder="@tuusuario" autocapitalize="none"></div>
+      <div class="row">
+        <div class="field"><label for="seguidores">Seguidores</label><input id="seguidores" inputmode="numeric" placeholder="Ej. 3200"></div>
+        <div class="field"><label for="alcance">Cuentas alcanzadas</label><input id="alcance" inputmode="numeric" placeholder="Ej. 8500"></div>
+      </div>
+      <div class="row">
+        <div class="field"><label for="vistas">Visualizaciones</label><input id="vistas" inputmode="numeric" placeholder="Opcional"></div>
+        <div class="field"><label for="visitas_perfil">Visitas al perfil</label><input id="visitas_perfil" inputmode="numeric" placeholder="Opcional"></div>
+      </div>
+      <div class="row">
+        <div class="field"><label for="clics_enlace">Toques en el enlace de tu bio</label><input id="clics_enlace" inputmode="numeric" placeholder="Opcional"></div>
+        <div class="field"><label for="nuevos_seguidores">Seguidores nuevos</label><input id="nuevos_seguidores" inputmode="numeric" placeholder="Opcional"></div>
+      </div>
+      <div class="field"><label for="frecuencia">¿Cada cuánto publicas?</label>
+        <select id="frecuencia"><option value="">Elige una opción…</option><option>Casi nunca</option><option>1 a 2 veces por semana</option><option>3 a 5 veces por semana</option><option>Todos los días</option></select></div>
+
+      <p class="sec">Tu negocio</p>
+      <div class="field"><label for="oferta">¿Qué vendes u ofreces?</label><input id="oferta" placeholder="Ej. diseño de interiores, asesorías, ropa…"></div>
+      <div class="field"><label for="meta">Tu meta para los próximos 30 días</label>
+        <select id="meta"><option value="">Elige una opción…</option><option>Conseguir mis primeros clientes</option><option>Vender más</option><option>Atraer clientes que sí encajan conmigo</option><option>Tener una estrategia clara</option><option>Otra</option></select></div>
+      <div class="field"><label for="resolver">¿Qué te gustaría resolver en la llamada?</label><textarea id="resolver" placeholder="Cuéntame con tus palabras"></textarea></div>
+
+      <input class="hp" id="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <label class="consent"><input type="checkbox" id="consent"><span>Acepto que Katherinne Núñez use estos datos para preparar mi llamada y me contacte por correo o WhatsApp.</span></label>
+      <p class="err" id="err" role="alert"></p>
+      <button class="btn" id="btn" type="submit">Enviar y elegir mi horario →</button>
+    </form>
+
+    <div class="done" id="done" tabindex="-1">
+      <h2>¡Listo, gracias!</h2>
+      <p id="doneTxt">Ya tengo tus datos. Último paso: elige el día y la hora de tu llamada gratis de 30 minutos.</p>
+      <a class="btn" id="book" target="_blank" rel="noopener" style="display:none">Elegir mi horario →</a>
+      <a class="btn ghost" id="wab" target="_blank" rel="noopener">Escribirme por WhatsApp</a>
+    </div>
+  </div>
+</main>
+
+<script>
+// === AJUSTA ESTO (usa los mismos datos que en index.html) ===
+const BOOKING_URL  = "";  // enlace de tu agenda de Google Calendar / Cal.com. Aparece solo después de llenar el formulario
+const ACCESS_KEY   = "a7f931ad9bae4b66b8a254ad8a107539";
+const FORM_URL     = "https://splitforms.com/api/submit";
+const SUPABASE_URL = "https://kdxfiqapaptdmjmjpfrh.supabase.co";
+const SUPABASE_KEY = "sb_publishable_mI0Qqqjp-40B2_OCKqQyTA_6e_1DmGE";
+const WA_LINK      = "https://wa.link/qzmd3u";
+const WA_NUMBER    = "";  // opcional: solo dígitos con código de país
+
+const $ = id => document.getElementById(id);
+const F = ['nombre','email','wa','instagram','seguidores','alcance','vistas','visitas_perfil','clics_enlace','nuevos_seguidores','frecuencia','oferta','meta','resolver'];
+
+// Rellena nombre, correo y WhatsApp si vienen desde el diagnóstico
+const q = new URLSearchParams(location.search);
+if(q.get('name')) $('nombre').value = q.get('name');
+if(q.get('email')) $('email').value = q.get('email');
+if(q.get('wa')) $('wa').value = q.get('wa');
+
+$('f').addEventListener('submit', async e=>{
+  e.preventDefault(); const err=$('err'); err.textContent='';
+  if($('website').value) return; // trampa para bots
+  const v = {}; F.forEach(k=>v[k]=$(k).value.trim());
+  if(!v.nombre){err.textContent='Escribe tu nombre.';$('nombre').focus();return;}
+  if(!/^\S+@\S+\.\S+$/.test(v.email)){err.textContent='Revisa tu correo, parece incompleto.';$('email').focus();return;}
+  if(v.wa.replace(/\D/g,'').length<10){err.textContent='Escribe tu WhatsApp con código de país.';$('wa').focus();return;}
+  if(!v.instagram){err.textContent='Escribe tu usuario de Instagram.';$('instagram').focus();return;}
+  if(!v.seguidores){err.textContent='Escribe cuántos seguidores tienes.';$('seguidores').focus();return;}
+  if(!v.alcance){err.textContent='Escribe tus cuentas alcanzadas (si no las ves, pon "no sé").';$('alcance').focus();return;}
+  if(!v.resolver){err.textContent='Cuéntame qué te gustaría resolver en la llamada.';$('resolver').focus();return;}
+  if(!$('consent').checked){err.textContent='Marca la casilla para poder enviar tus datos.';return;}
+
+  $('btn').disabled=true; $('btn').textContent='Enviando…';
+  const row = {nombre:v.nombre,email:v.email,whatsapp:v.wa,instagram:v.instagram,seguidores:v.seguidores,alcance:v.alcance,vistas:v.vistas,visitas_perfil:v.visitas_perfil,clics_enlace:v.clics_enlace,nuevos_seguidores:v.nuevos_seguidores,frecuencia:v.frecuencia,oferta:v.oferta,meta:v.meta,resolver:v.resolver};
+  const sb = fetch(SUPABASE_URL+'/rest/v1/previa_llamada',{method:'POST',headers:sbHeaders(),body:JSON.stringify(row)}).catch(()=>{});
+  const mail = fetch(FORM_URL,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(Object.assign({access_key:ACCESS_KEY,from_name:'Preparación de llamada',subject:'Preparación de llamada: '+v.instagram+' ('+v.nombre+')',botcheck:''},row))}).then(r=>r.json()).catch(()=>({success:false}));
+  const [,res] = await Promise.all([sb,mail]);
+  if(res && res.success===false){ err.textContent='No se pudo enviar. Revisa tu conexión e inténtalo de nuevo.'; $('btn').disabled=false; $('btn').textContent='Enviar y elegir mi horario →'; return; }
+
+  // Mostrar el enlace solo ahora
+  const msg = 'Hola Katherinne, soy '+v.nombre.split(' ')[0]+'. Ya llené el formulario de preparación para mi llamada.';
+  $('wab').href = WA_NUMBER ? 'https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(msg) : WA_LINK;
+  if(BOOKING_URL){
+    const u=new URL(BOOKING_URL); u.searchParams.set('name',v.nombre); u.searchParams.set('email',v.email);
+    $('book').href=u.toString(); $('book').style.display='flex';
+  } else { $('doneTxt').textContent='Ya tengo tus datos. Te escribo por WhatsApp o correo para coordinar el día y la hora de tu llamada.'; }
+  $('f').style.display='none'; $('done').style.display='block'; $('done').focus(); window.scrollTo({top:0,behavior:'smooth'});
+});
+function sbHeaders(){ const h={apikey:SUPABASE_KEY,'Content-Type':'application/json',Prefer:'return=minimal'}; if(SUPABASE_KEY.startsWith('eyJ')) h.Authorization='Bearer '+SUPABASE_KEY; return h; }
+</script>
+</body>
+</html>
