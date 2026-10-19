@@ -51,6 +51,9 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold)}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 @media(max-width:560px){.row{grid-template-columns:1fr}.card{padding:22px 18px}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+.files{list-style:none;margin:10px 0 0;display:grid;gap:6px}.files li{font-size:12px;color:#EFE9D6;background:rgba(15,16,8,.3);border:1px solid var(--border);border-radius:8px;padding:8px 12px}
+.or{text-align:center;color:#A39C85;font-size:12px;margin-top:12px}
+#pick,#waSend{margin-top:10px}
 </style>
 </head>
 <body>
@@ -58,11 +61,11 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold)}
   <div class="brand">Katherinne Núñez<small>Estrategia de marca</small></div>
   <div class="eyebrow">Antes de nuestra llamada</div>
   <h1>Cuéntame sobre tu <em>Instagram</em></h1>
-  <p class="sub" id="sub">Con estos datos llego a la llamada con tu caso ya revisado, y los 30 minutos se usan para lo importante, no para preguntas básicas. Te toma unos 3 minutos. Al terminar eliges tu horario.</p>
+  <p class="sub">Con estos datos llego a la llamada con tu caso ya revisado, y los 30 minutos se usan para lo importante, no para preguntas básicas. Te toma unos 3 minutos. Al terminar eliges tu horario.</p>
 
   <div class="card" id="card">
     <form id="f" novalidate>
-      <div class="how"><b>¿Dónde veo mis números?</b><br>En Instagram: tu perfil → <b>Panel profesional</b> → <b>Ver todo</b> en Insights → elige <b>Últimos 30 días</b>. Los nombres pueden variar un poco según tu versión de la app. Si algún dato no lo encuentras, déjalo en blanco.</div>
+      <div class="how"><b>¿Qué capturas necesito?</b><br>En Instagram: tu perfil → <b>Panel profesional</b> → <b>Ver todo</b> en Insights → elige <b>Últimos 30 días</b>. Toma captura de la pantalla general (cuentas alcanzadas, visualizaciones, interacciones) y otra de tus seguidores. Si quieres, suma una de tu perfil. Los nombres pueden variar un poco según tu versión de la app.</div>
 
       <p class="sec">Tú</p>
       <div class="field"><label for="nombre">Nombre</label><input id="nombre" autocomplete="name"></div>
@@ -71,22 +74,17 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold)}
         <div class="field"><label for="wa">WhatsApp</label><input id="wa" type="tel" inputmode="tel" autocomplete="tel" placeholder="+1 809 000 0000"></div>
       </div>
 
-      <p class="sec">Tu Instagram · últimos 30 días</p>
+      <p class="sec">Tu Instagram</p>
       <div class="field"><label for="instagram">Tu usuario de Instagram</label><input id="instagram" placeholder="@tuusuario" autocapitalize="none"></div>
-      <div class="row">
-        <div class="field"><label for="seguidores">Seguidores</label><input id="seguidores" inputmode="numeric" placeholder="Ej. 3200"></div>
-        <div class="field"><label for="alcance">Cuentas alcanzadas</label><input id="alcance" inputmode="numeric" placeholder="Ej. 8500"></div>
+      <div class="field"><label>Capturas de tus estadísticas (últimos 30 días)</label>
+        <div class="hint">Súbelas aquí (hasta 4 imágenes) o envíamelas por WhatsApp. Elige una de las dos.</div>
+        <input id="files" type="file" accept="image/*" multiple hidden>
+        <button type="button" class="btn ghost" id="pick">📎 Elegir capturas</button>
+        <ul class="files" id="fileList"></ul>
+        <div class="or">o</div>
+        <a class="btn ghost" id="waSend" target="_blank" rel="noopener">Enviar mis capturas por WhatsApp</a>
+        <label class="consent" id="waOk" style="display:none"><input type="checkbox" id="waDone"><span>Ya envié mis capturas por WhatsApp</span></label>
       </div>
-      <div class="row">
-        <div class="field"><label for="vistas">Visualizaciones</label><input id="vistas" inputmode="numeric" placeholder="Opcional"></div>
-        <div class="field"><label for="visitas_perfil">Visitas al perfil</label><input id="visitas_perfil" inputmode="numeric" placeholder="Opcional"></div>
-      </div>
-      <div class="row">
-        <div class="field"><label for="clics_enlace">Toques en el enlace de tu bio</label><input id="clics_enlace" inputmode="numeric" placeholder="Opcional"></div>
-        <div class="field"><label for="nuevos_seguidores">Seguidores nuevos</label><input id="nuevos_seguidores" inputmode="numeric" placeholder="Opcional"></div>
-      </div>
-      <div class="field"><label for="frecuencia">¿Cada cuánto publicas?</label>
-        <select id="frecuencia"><option value="">Elige una opción…</option><option>Casi nunca</option><option>1 a 2 veces por semana</option><option>3 a 5 veces por semana</option><option>Todos los días</option></select></div>
 
       <p class="sec">Tu negocio</p>
       <div class="field"><label for="oferta">¿Qué vendes u ofreces?</label><input id="oferta" placeholder="Ej. diseño de interiores, asesorías, ropa…"></div>
@@ -111,62 +109,90 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold)}
 
 <script>
 // === AJUSTA ESTO (usa los mismos datos que en index.html) ===
-const BOOKING_URL  = "https://calendar.app.google/b1HvDK1ih643CgzNA";  // tu agenda. Solo la ven quienes llegan desde el diagnóstico eligiendo asesoría 1:1
+const BOOKING_URL  = "";  // enlace de tu agenda de Google Calendar / Cal.com. Aparece solo después de llenar el formulario
 const ACCESS_KEY   = "a7f931ad9bae4b66b8a254ad8a107539";
 const FORM_URL     = "https://splitforms.com/api/submit";
 const SUPABASE_URL = "https://kdxfiqapaptdmjmjpfrh.supabase.co";
 const SUPABASE_KEY = "sb_publishable_mI0Qqqjp-40B2_OCKqQyTA_6e_1DmGE";
 const WA_LINK      = "https://wa.link/qzmd3u";
-const WA_NUMBER    = "";  // opcional: solo dígitos con código de país
+const WA_NUMBER    = "";  // solo dígitos con código de país. Con tu número, el botón de WhatsApp abre el chat con el mensaje ya escrito
+const BUCKET = "insights", MAX_FILES = 4;
 
 const $ = id => document.getElementById(id);
-const F = ['nombre','email','wa','instagram','seguidores','alcance','vistas','visitas_perfil','clics_enlace','nuevos_seguidores','frecuencia','oferta','meta','resolver'];
-
-// Rellena nombre, correo y WhatsApp si vienen desde el diagnóstico
 const q = new URLSearchParams(location.search);
 if(q.get('name')) $('nombre').value = q.get('name');
 if(q.get('email')) $('email').value = q.get('email');
 if(q.get('wa')) $('wa').value = q.get('wa');
 
-// Solo quien eligió "asesoría 1:1" en el diagnóstico (index.html agrega ref=asesoria) ve la agenda
-const ASESORIA = q.get('ref')==='asesoria';
-const BTN_TXT = ASESORIA ? 'Enviar y elegir mi horario →' : 'Enviar →';
-$('btn').textContent = BTN_TXT;
-if(!ASESORIA){
-  $('sub').textContent = 'Con estos datos reviso tu caso antes de escribirte. Te toma unos 3 minutos.';
-  $('doneTxt').textContent = 'Ya tengo tus datos. Los reviso y te escribo por WhatsApp o correo.';
+let picked = [];
+$('pick').onclick = () => $('files').click();
+$('files').onchange = () => {
+  picked = [...$('files').files].filter(f=>f.type.startsWith('image/')).slice(0,MAX_FILES);
+  $('fileList').innerHTML='';
+  picked.forEach(f=>{const li=document.createElement('li'); li.textContent='✓ '+f.name; $('fileList').appendChild(li);});
+  $('pick').textContent = picked.length ? '📎 Cambiar capturas' : '📎 Elegir capturas';
+};
+$('waSend').onclick = () => {
+  const nom=$('nombre').value.trim().split(' ')[0]||'', ig=$('instagram').value.trim();
+  const msg='Hola Katherinne, soy '+nom+(ig?' ('+ig+')':'')+'. Te envío las capturas de mis estadísticas de Instagram (últimos 30 días) para nuestra llamada:';
+  $('waSend').href = WA_NUMBER ? 'https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(msg) : WA_LINK;
+  $('waOk').style.display='flex';
+};
+function sbH(ct){ const h={apikey:SUPABASE_KEY}; if(ct) h['Content-Type']=ct; if(SUPABASE_KEY.startsWith('eyJ')) h.Authorization='Bearer '+SUPABASE_KEY; return h; }
+async function compress(file){ // reduce el tamaño para que suba rápido, incluso con datos móviles
+  const bmp = await createImageBitmap(file); const sc=Math.min(1,1600/Math.max(bmp.width,bmp.height));
+  const c=document.createElement('canvas'); c.width=Math.round(bmp.width*sc); c.height=Math.round(bmp.height*sc);
+  c.getContext('2d').drawImage(bmp,0,0,c.width,c.height);
+  return new Promise((res,rej)=>c.toBlob(b=>b?res(b):rej(),'image/jpeg',.82));
+}
+async function uploadAll(folder){
+  let ok=0;
+  for(let i=0;i<picked.length;i++){
+    try{
+      const blob=await compress(picked[i]);
+      const r=await fetch(SUPABASE_URL+'/storage/v1/object/'+BUCKET+'/'+folder+'/captura'+(i+1)+'.jpg',{method:'POST',headers:sbH('image/jpeg'),body:blob});
+      if(r.ok) ok++;
+    }catch(e){}
+  }
+  return ok;
 }
 
 $('f').addEventListener('submit', async e=>{
   e.preventDefault(); const err=$('err'); err.textContent='';
   if($('website').value) return; // trampa para bots
-  const v = {}; F.forEach(k=>v[k]=$(k).value.trim());
+  const v={}; ['nombre','email','wa','instagram','frecuencia','oferta','meta','resolver'].forEach(k=>{ if($(k)) v[k]=$(k).value.trim(); });
   if(!v.nombre){err.textContent='Escribe tu nombre.';$('nombre').focus();return;}
   if(!/^\S+@\S+\.\S+$/.test(v.email)){err.textContent='Revisa tu correo, parece incompleto.';$('email').focus();return;}
   if(v.wa.replace(/\D/g,'').length<10){err.textContent='Escribe tu WhatsApp con código de país.';$('wa').focus();return;}
   if(!v.instagram){err.textContent='Escribe tu usuario de Instagram.';$('instagram').focus();return;}
-  if(!v.seguidores){err.textContent='Escribe cuántos seguidores tienes.';$('seguidores').focus();return;}
-  if(!v.alcance){err.textContent='Escribe tus cuentas alcanzadas (si no las ves, pon "no sé").';$('alcance').focus();return;}
+  if(!picked.length && !$('waDone').checked){err.textContent='Sube tus capturas o envíalas por WhatsApp y marca la casilla.';return;}
   if(!v.resolver){err.textContent='Cuéntame qué te gustaría resolver en la llamada.';$('resolver').focus();return;}
   if(!$('consent').checked){err.textContent='Marca la casilla para poder enviar tus datos.';return;}
 
   $('btn').disabled=true; $('btn').textContent='Enviando…';
-  const row = {nombre:v.nombre,email:v.email,whatsapp:v.wa,instagram:v.instagram,seguidores:v.seguidores,alcance:v.alcance,vistas:v.vistas,visitas_perfil:v.visitas_perfil,clics_enlace:v.clics_enlace,nuevos_seguidores:v.nuevos_seguidores,frecuencia:v.frecuencia,oferta:v.oferta,meta:v.meta,resolver:v.resolver};
-  const sb = fetch(SUPABASE_URL+'/rest/v1/previa_llamada',{method:'POST',headers:sbHeaders(),body:JSON.stringify(row)}).catch(()=>{});
-  const mail = fetch(FORM_URL,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(Object.assign({access_key:ACCESS_KEY,from_name:'Preparación de llamada',subject:'Preparación de llamada: '+v.instagram+' ('+v.nombre+')',botcheck:''},row))}).then(r=>r.json()).catch(()=>({success:false}));
-  const [,res] = await Promise.all([sb,mail]);
-  if(res && res.success===false){ err.textContent='No se pudo enviar. Revisa tu conexión e inténtalo de nuevo.'; $('btn').disabled=false; $('btn').textContent=BTN_TXT; return; }
+  const handle=v.instagram.toLowerCase().replace(/[^a-z0-9._-]/g,'').slice(0,30)||'sin-usuario';
+  const folder=Date.now()+'_'+handle;
+  const subidas = picked.length ? await uploadAll(folder) : 0;
+  const viaWa = $('waDone').checked;
+  if(picked.length && subidas===0 && !viaWa){
+    err.textContent='No pude subir las imágenes. Envíalas con el botón de WhatsApp y marca la casilla.';
+    $('waOk').style.display='flex'; $('btn').disabled=false; $('btn').textContent='Enviar y elegir mi horario →'; return;
+  }
+  const row={nombre:v.nombre,email:v.email,whatsapp:v.wa,instagram:v.instagram,oferta:v.oferta,meta:v.meta,resolver:v.resolver,capturas:subidas,carpeta:subidas?folder:null,via_whatsapp:viaWa};
+  const sb=fetch(SUPABASE_URL+'/rest/v1/previa_llamada',{method:'POST',headers:Object.assign(sbH('application/json'),{Prefer:'return=minimal'}),body:JSON.stringify(row)}).catch(()=>{});
+  const mail=fetch(FORM_URL,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(Object.assign({access_key:ACCESS_KEY,from_name:'Preparación de llamada',subject:'Preparación de llamada: '+v.instagram+' ('+v.nombre+')',botcheck:'',ver_capturas:subidas?('Supabase > Storage > '+BUCKET+' > '+folder):'(las envió por WhatsApp)'},row))}).then(r=>r.json()).catch(()=>({success:false}));
+  const [,res]=await Promise.all([sb,mail]);
+  if(res && res.success===false){ err.textContent='No se pudo enviar. Revisa tu conexión e inténtalo de nuevo.'; $('btn').disabled=false; $('btn').textContent='Enviar y elegir mi horario →'; return; }
 
-  // Mostrar el enlace solo ahora
-  const msg = 'Hola Katherinne, soy '+v.nombre.split(' ')[0]+'. Ya llené el formulario de preparación para mi llamada.';
+  // Mostrar el enlace de la agenda solo ahora
+  const msg='Hola Katherinne, soy '+v.nombre.split(' ')[0]+'. Ya llené el formulario de preparación para mi llamada.';
   $('wab').href = WA_NUMBER ? 'https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(msg) : WA_LINK;
-  if(BOOKING_URL && ASESORIA){
+  if(BOOKING_URL){
     const u=new URL(BOOKING_URL); u.searchParams.set('name',v.nombre); u.searchParams.set('email',v.email);
     $('book').href=u.toString(); $('book').style.display='flex';
-  } else if(ASESORIA){ $('doneTxt').textContent='Ya tengo tus datos. Te escribo por WhatsApp o correo para coordinar el día y la hora de tu llamada.'; }
+  } else { $('doneTxt').textContent='Ya tengo tus datos. Te escribo por WhatsApp o correo para coordinar el día y la hora de tu llamada.'; }
   $('f').style.display='none'; $('done').style.display='block'; $('done').focus(); window.scrollTo({top:0,behavior:'smooth'});
 });
-function sbHeaders(){ const h={apikey:SUPABASE_KEY,'Content-Type':'application/json',Prefer:'return=minimal'}; if(SUPABASE_KEY.startsWith('eyJ')) h.Authorization='Bearer '+SUPABASE_KEY; return h; }
 </script>
 </body>
 </html>
