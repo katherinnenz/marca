@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trabajemos en tu marca | Katherinne Núñez</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#1E2114;--bg-soft:#262A1B;--surface:#2F3422;--surface-light:#F3EEDF;--text:#F3EEDF;--muted:#B8B198;--dark-text:#1E2114;--green:#D4AF5F;--green-hover:#E2C277;--border:rgba(255,255,255,.12);--radius:22px;--font:"DM Sans",sans-serif;--heading:"Manrope",sans-serif;--max-width:1160px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button,input,select{font:inherit}
+button,a{-webkit-tap-highlight-color:transparent}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+.container{width:min(var(--max-width),calc(100% - 48px));margin-inline:auto}
+.announcement{padding:10px 16px;text-align:center;font-size:12px;letter-spacing:.04em;color:var(--green);background:#23271A;border-bottom:1px solid var(--border)}
+.announcement span{color:var(--text)}
+header{border-bottom:1px solid var(--border)}
+.navbar{min-height:82px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{display:flex;align-items:center;gap:11px;font-family:var(--heading);font-size:16px;font-weight:800;letter-spacing:-.6px}
+.brand-mark{width:35px;height:35px;display:grid;place-items:center;color:var(--bg);background:var(--green);border-radius:10px;font-size:21px;font-weight:800}
+.brand small{display:block;color:var(--muted);font-family:var(--font);font-size:9px;font-weight:500;letter-spacing:2px;text-transform:uppercase}
+.nav-link{color:var(--muted);font-size:13px;transition:color .2s}
+.nav-link:hover{color:var(--green)}
+.button{min-height:49px;display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:0 21px;border:0;border-radius:9px;background:var(--green);color:var(--bg);font-size:13px;font-weight:700;cursor:pointer;transition:background .2s,transform .2s}
+.button:hover{background:var(--green-hover);transform:translateY(-1px)}
+.button svg{width:16px;height:16px}
+.hero{position:relative;overflow:hidden;padding:86px 0 90px;background:radial-gradient(ellipse at 18% 15%,rgba(142,118,64,.16),transparent 42%),var(--bg)}
+.hero::before{position:absolute;top:60px;right:-160px;width:460px;height:460px;border:1px solid rgba(212,175,95,.08);border-radius:50%;content:"";pointer-events:none}
+.hero-grid{position:relative;display:grid;grid-template-columns:1.03fr .97fr;align-items:center;gap:76px}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;margin-bottom:25px;color:var(--green);font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase}
+.eyebrow-dot{width:7px;height:7px;background:var(--green);border-radius:50%;box-shadow:0 0 13px rgba(212,175,95,.6)}
+h1,h2,h3{font-family:var(--heading);line-height:1.13;letter-spacing:-1.6px}
+h1{max-width:620px;font-size:clamp(38px,4.8vw,61px);font-weight:700}
+h1 em{color:var(--green);font-style:normal}
+.hero-description{max-width:485px;margin-top:24px;color:#CBC5B0;font-size:15px;line-height:1.9}
+.hero-points{display:grid;gap:14px;margin-top:31px;list-style:none}
+.hero-points li{display:flex;align-items:center;gap:12px;color:#EFE9D6;font-size:13px}
+.check{flex:0 0 23px;width:23px;height:23px;display:grid;place-items:center;border-radius:50%;background:rgba(212,175,95,.12);color:var(--green);font-size:13px}
+.hero-note{display:flex;align-items:center;gap:12px;margin-top:36px;color:var(--muted);font-size:11px}
+.avatar-stack{display:flex;padding-left:5px}
+.avatar{width:29px;height:29px;display:grid;place-items:center;margin-left:-5px;border:2px solid var(--bg);border-radius:50%;background:#3A3F2A;color:var(--green);font-size:10px;font-weight:700}
+.form-card{position:relative;padding:34px;border:1px solid rgba(255,255,255,.13);border-radius:var(--radius);background:linear-gradient(145deg,#2E3322,#23271A);box-shadow:0 28px 80px rgba(0,0,0,.2)}
+.form-label-top{display:inline-block;margin-bottom:17px;padding:6px 10px;border:1px solid rgba(212,175,95,.2);border-radius:5px;color:var(--green);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.form-card h2{font-size:27px;letter-spacing:-.8px}
+.form-intro{margin-top:10px;margin-bottom:25px;color:var(--muted);font-size:12px;line-height:1.8}
+.form-fields{display:grid;gap:15px}
+.field{display:grid;gap:7px}
+.field label{color:#EFE9D6;font-size:11px;font-weight:600}
+.field input{width:100%;min-height:49px;padding:0 14px;border:1px solid rgba(255,255,255,.12);border-radius:8px;outline:none;background:rgba(15,16,8,.26);color:var(--text);font-size:13px;transition:border-color .2s,background .2s}
+.field input::placeholder{color:#8C866F}
+.field input:focus{border-color:var(--green);background:rgba(15,16,8,.4)}
+.phone-group{display:flex;gap:9px}
+.phone-prefix{width:91px;flex-shrink:0;padding:0 8px;border:1px solid rgba(255,255,255,.12);border-radius:8px;background:#2E3322;color:var(--text);font-size:12px}
+.phone-group input{min-width:0}
+.consent{display:flex;align-items:flex-start;gap:10px;margin-top:19px;color:#BDB6A0;font-size:10px;line-height:1.7;cursor:pointer}
+.consent input{width:15px;height:15px;flex-shrink:0;margin-top:2px;accent-color:var(--green)}
+.submit-button{width:100%;min-height:53px;margin-top:21px}
+.form-footnote{display:flex;justify-content:center;align-items:center;gap:7px;margin-top:16px;color:#A39C85;font-size:10px;text-align:center}
+.form-footnote svg{width:13px;height:13px;flex-shrink:0}
+.form-message{display:none;margin-top:15px;padding:13px;border:1px solid rgba(212,175,95,.3);border-radius:8px;color:var(--green);font-size:12px;line-height:1.6}
+.form-message.visible{display:block}
+.trust-strip{border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:#1A1D12}
+.trust-grid{min-height:102px;display:grid;grid-template-columns:repeat(3,1fr);align-items:center;gap:20px}
+.trust-item{display:flex;align-items:center;justify-content:center;gap:13px;color:#CFC9B4;font-size:11px}
+.trust-icon{width:36px;height:36px;display:grid;place-items:center;flex-shrink:0;border:1px solid var(--border);border-radius:10px;color:var(--green);font-size:17px}
+.trust-item strong{display:block;margin-bottom:2px;color:var(--text);font-size:12px}
+.guide-section{padding:104px 0;background:var(--surface-light);color:var(--dark-text)}
+.section-grid{display:grid;grid-template-columns:.9fr 1.1fr;align-items:center;gap:85px}
+.guide-visual{position:relative;min-height:380px;display:grid;place-items:center;overflow:hidden;border-radius:20px;background:radial-gradient(ellipse at 70% 30%,#5F5A38,transparent 48%),#2B3020}
+.guide-orbit{position:absolute;width:280px;height:280px;border:1px solid rgba(212,175,95,.22);border-radius:50%}
+.guide-orbit::after{position:absolute;inset:24px;border:1px solid rgba(212,175,95,.14);border-radius:50%;content:""}
+.guide-cover{position:relative;z-index:1;width:215px;min-height:280px;display:flex;flex-direction:column;justify-content:space-between;padding:24px;border:1px solid rgba(255,255,255,.2);background:linear-gradient(150deg,#3A4028,#1E2114);box-shadow:15px 22px 45px rgba(0,0,0,.3);transform:rotate(-4deg)}
+.guide-cover .mini-brand{color:var(--green);font-size:9px;font-weight:700;letter-spacing:2px}
+.guide-cover h3{color:#fff;font-size:27px;letter-spacing:-1px}
+.guide-cover h3 span{color:var(--green)}
+.guide-cover p{color:#D8D2BC;font-size:9px;line-height:1.7}
+.guide-decoration{position:absolute;right:25px;bottom:25px;width:54px;height:54px;display:grid;place-items:center;border:1px solid rgba(212,175,95,.3);border-radius:50%;color:var(--green);font-size:24px}
+.section-kicker{margin-bottom:17px;color:#6F5A2F;font-size:11px;font-weight:700;letter-spacing:1.7px;text-transform:uppercase}
+.guide-copy h2{max-width:500px;font-size:clamp(32px,4vw,46px)}
+.guide-copy h2 span{color:#7A6430}
+.guide-copy>p{margin-top:22px;color:#5E5A48;font-size:14px;line-height:1.9}
+.guide-benefits{display:grid;gap:13px;margin-top:25px;list-style:none}
+.guide-benefits li{display:flex;gap:10px;align-items:flex-start;color:#3A3A2A;font-size:12px}
+.guide-benefits li span{color:#7A6430;font-weight:700}
+.guide-cta{margin-top:30px}
+.testimonial-section{padding:105px 0}
+.testimonial-wrap{max-width:790px;margin:auto;text-align:center}
+.quote-symbol{color:var(--green);font-family:Georgia,serif;font-size:75px;line-height:1}
+.testimonial-wrap h2{margin-bottom:23px;color:var(--green);font-size:12px;letter-spacing:1.8px;text-transform:uppercase}
+blockquote{color:#EFE9D6;font-family:var(--heading);font-size:clamp(21px,3vw,30px);font-weight:500;letter-spacing:-.7px;line-height:1.6}
+.testimonial-author{display:flex;flex-direction:column;align-items:center;gap:3px;margin-top:30px}
+.author-avatar{width:43px;height:43px;display:grid;place-items:center;margin-bottom:8px;border-radius:50%;background:var(--surface);color:var(--green);font-weight:700}
+.testimonial-author strong{font-size:13px}
+.testimonial-author span{color:var(--muted);font-size:11px}
+.final-cta{padding:0 0 90px}
+.final-cta-card{position:relative;display:flex;align-items:center;justify-content:space-between;gap:30px;padding:46px 50px;overflow:hidden;border:1px solid rgba(212,175,95,.2);border-radius:var(--radius);background:radial-gradient(ellipse at 90% 20%,rgba(212,175,95,.09),transparent 40%),var(--bg-soft)}
+.final-cta-card h2{max-width:570px;font-size:clamp(25px,3vw,37px)}
+.final-cta-card p{margin-top:12px;color:var(--muted);font-size:13px}
+.final-cta-card .button{flex-shrink:0}
+footer{padding:31px 0;border-top:1px solid var(--border)}
+.footer-main{display:flex;align-items:center;justify-content:space-between;gap:25px}
+.footer-copy{color:var(--muted);font-size:10px;line-height:1.9}
+.footer-links{display:flex;flex-wrap:wrap;gap:20px}
+.footer-links a{color:#CFC9B4;font-size:11px}
+.footer-links a:hover{color:var(--green)}
+.footer-bottom{display:flex;justify-content:space-between;gap:15px;margin-top:24px;padding-top:19px;border-top:1px solid var(--border);color:#A39C85;font-size:10px}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:45px;max-width:650px;margin-inline:auto}.hero{padding:65px 0}.hero-description{max-width:600px}.section-grid{gap:45px}.guide-visual{min-height:330px}.form-card{padding:30px}.final-cta-card{padding:35px}}
+@media(max-width:650px){.container{width:min(100% - 36px,var(--max-width))}.navbar{min-height:70px}.nav-link{display:none}.navbar>.button{min-height:41px;padding-inline:12px;font-size:11px}.brand{font-size:14px}.brand-mark{width:31px;height:31px}.hero{padding:51px 0 58px}.eyebrow{margin-bottom:19px;font-size:9px}h1{font-size:clamp(36px,10vw,49px);letter-spacing:-1.5px}.hero-description{margin-top:19px;font-size:13px}.hero-points{gap:12px;margin-top:23px}.hero-points li{font-size:12px}.hero-note{margin-top:26px}.form-card{padding:23px 18px;border-radius:16px}.form-card h2{font-size:24px}.trust-grid{grid-template-columns:1fr;gap:0;padding-block:10px}.trust-item{justify-content:flex-start;padding:13px 5px}.section-grid{grid-template-columns:1fr;gap:36px}.guide-section{padding:65px 0}.guide-visual{min-height:320px}.guide-copy h2{font-size:35px}.testimonial-section{padding:72px 0}blockquote{font-size:22px}.final-cta{padding-bottom:60px}.final-cta-card{align-items:flex-start;flex-direction:column;padding:29px 23px}.final-cta-card .button{width:100%}.footer-main,.footer-bottom{align-items:flex-start;flex-direction:column}.footer-links{gap:15px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
+
+/* ===== Añadido para el diagnóstico por pasos (usa las mismas variables) ===== */
+.step{display:none}.step.on{display:block}
+.prog{display:flex;justify-content:space-between;color:var(--green);font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:8px}
+.prog-bar{height:3px;background:var(--border);border-radius:2px;margin-bottom:22px}
+.prog-bar span{display:block;height:100%;width:0;background:var(--green);border-radius:2px;transition:width .3s}
+.opts{display:grid;gap:10px;margin:22px 0 16px}
+.opt{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:14px 16px;min-height:52px;border:1px solid rgba(255,255,255,.12);border-radius:10px;background:rgba(15,16,8,.26);color:var(--text);font-size:14px;cursor:pointer;transition:border-color .2s,background .2s}
+.opt:hover{border-color:var(--green)}
+.opt .l{flex:none;width:24px;height:24px;display:grid;place-items:center;border:1px solid var(--border);border-radius:50%;font-size:11px;font-weight:700;color:var(--muted)}
+.opt.sel{background:var(--green);border-color:var(--green);color:var(--bg);font-weight:600}
+.opt.sel .l{border-color:var(--bg);color:var(--bg)}
+.back{background:none;border:0;color:var(--muted);font-size:12px;text-decoration:underline;cursor:pointer;padding:4px 0}
+.err{color:#ffb4a2;font-size:12px;min-height:1.3em;margin-top:14px}
+.hp{position:absolute;left:-9999px}
+.paso{display:flex;gap:14px;align-items:flex-start;padding:13px 0;border-top:1px solid var(--border);font-size:13px;color:#EFE9D6}
+.paso b{flex:none;color:var(--green);font-family:var(--heading);font-size:15px}
+.next{margin:18px 0 4px;padding:15px;border:1px solid rgba(212,175,95,.25);border-radius:10px;background:rgba(212,175,95,.06);font-size:13px}
+.next small{display:block;color:var(--green);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
+.wa-btn{width:100%;margin-top:18px;min-height:53px}
+
+
+/* ===== Productos digitales ===== */
+.hero-alt{margin-top:28px;font-size:13px;color:var(--muted)}
+.hero-alt a{color:var(--green);font-weight:600;text-decoration:underline;text-underline-offset:4px}
+.products{padding:96px 0}
+.products-head{max-width:560px;margin-bottom:38px}
+.products-head h2{font-size:clamp(30px,4vw,44px)}
+.products-head p{margin-top:14px;color:var(--muted);font-size:14px;line-height:1.8}
+.product-card{display:grid;grid-template-columns:.8fr 1.2fr;gap:50px;align-items:center;padding:40px;border:1px solid rgba(212,175,95,.28);border-radius:var(--radius);background:radial-gradient(ellipse at 90% 10%,rgba(212,175,95,.12),transparent 45%),var(--bg-soft)}
+.product-cover{justify-self:center;width:min(100%,280px);height:auto;border-radius:6px;box-shadow:14px 20px 40px rgba(0,0,0,.4);transform:rotate(-3deg);transition:transform .25s}
+.product-card:hover .product-cover{transform:rotate(0)}
+.product-badge{display:inline-block;margin-bottom:14px;padding:5px 10px;border:1px solid rgba(212,175,95,.3);border-radius:5px;color:var(--green);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.product-card h3{font-size:clamp(26px,3vw,36px);margin-bottom:12px}
+.product-card p{color:#CBC5B0;font-size:14px;line-height:1.8}
+.product-for{display:grid;gap:10px;margin:20px 0 26px;list-style:none}
+.product-for li{display:flex;gap:10px;align-items:center;font-size:13px;color:#EFE9D6}
+.product-actions{display:flex;flex-wrap:wrap;gap:18px;align-items:center}
+.text-link{color:var(--green);font-size:13px;font-weight:600;text-decoration:underline;text-underline-offset:4px}
+.prod-card{display:flex;gap:14px;align-items:center;margin-top:20px;padding:14px;border:1px solid rgba(212,175,95,.3);border-radius:12px;background:rgba(212,175,95,.06)}
+.prod-card img{width:72px;height:auto;border-radius:5px;flex:none}
+.prod-card>div{display:grid;gap:3px}
+.prod-card small{color:var(--green);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.prod-card strong{font-family:var(--heading);font-size:16px}
+.prod-card span{font-size:12px;color:var(--muted);line-height:1.5}
+.prod-link{color:var(--green);font-size:12px;font-weight:700;margin-top:4px}
+@media(max-width:900px){.product-card{grid-template-columns:1fr;gap:30px;padding:28px}}
+@media(max-width:650px){.products{padding:64px 0}.product-actions .button{width:100%}}
+
+/* ===== Tarjetas de productos ===== */
+.product-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.product-item{display:flex;flex-direction:column;gap:12px;padding:26px;border:1px solid rgba(212,175,95,.28);border-radius:var(--radius);background:radial-gradient(ellipse at 90% 0%,rgba(212,175,95,.12),transparent 45%),var(--bg-soft)}
+.product-thumb{height:300px;display:grid;place-items:center;overflow:hidden;border-radius:14px;background:rgba(15,16,8,.35)}
+.product-thumb img{max-width:100%;max-height:100%;object-fit:contain;box-shadow:10px 14px 30px rgba(0,0,0,.4)}
+.product-item .product-badge{align-self:flex-start;margin:6px 0 0}
+.product-item h3{font-size:clamp(22px,2.4vw,28px)}
+.product-item p{flex:1;color:#CBC5B0;font-size:14px;line-height:1.7}
+.product-item .button{margin-top:8px}
+.products-more{margin-top:26px;text-align:center}
+@media(max-width:900px){.product-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <div class="container navbar">
+    <div class="brand"><div>Katherinne Núñez<small>Estrategia de marca</small></div></div>
+    <div style="display:flex;align-items:center;gap:26px"><a class="nav-link" href="#productos">Productos</a><a class="button" href="#form">Empezar</a></div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="eyebrow"><span class="eyebrow-dot"></span>Diagnóstico estratégico</div>
+      <h1>Trabajemos en tu <em>marca.</em></h1>
+      <p class="hero-description">Cuéntame dónde estás, qué quieres construir y qué necesitas resolver. Revisaré tu solicitud para recomendarte el siguiente paso.</p>
+      <ul class="hero-points">
+        <li><span class="check">✓</span>4 preguntas, menos de un minuto</li>
+        <li><span class="check">✓</span>Un diagnóstico según tu mayor dificultad</li>
+        <li><span class="check">✓</span>Tres primeros pasos y mi recomendación</li>
+      </ul>
+      <p class="hero-alt">¿Prefieres avanzar por tu cuenta? <a href="#productos">Ver mis productos digitales →</a></p>
+    </div>
+
+    <div class="form-card" id="form">
+      <!-- Paso 0: contacto -->
+      <div class="step on" id="s0">
+        <span class="form-label-top">Diagnóstico gratuito</span>
+        <h2>Empieza tu diagnóstico</h2>
+        <p class="form-intro">Déjame tus datos para enviarte el resultado.</p>
+        <div class="form-fields">
+          <div class="field"><label for="nombre">Nombre</label><input id="nombre" type="text" autocomplete="name" placeholder="Tu nombre"></div>
+          <div class="field"><label for="email">Correo</label><input id="email" type="email" autocomplete="email" placeholder="tu@correo.com"></div>
+          <div class="field"><label for="wa">WhatsApp</label>
+            <div class="phone-group">
+              <select class="phone-prefix" id="pref" aria-label="Código de país"><option>+1</option><option>+34</option><option>+52</option><option>+54</option><option>+57</option><option>+58</option><option>+56</option><option>+51</option></select>
+              <input id="wa" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="809 000 0000">
+            </div>
+          </div>
+        </div>
+        <label class="consent"><input type="checkbox" id="consent"><span>Acepto recibir mi resultado y que Katherinne Núñez me contacte por correo o WhatsApp sobre mi solicitud.</span></label>
+        <p class="err" id="e0" role="alert"></p>
+        <button class="button submit-button" id="go" type="button">Empezar mi diagnóstico →</button>
+        <p class="form-footnote">Gratis · Uso tus datos solo para responderte</p>
+      </div>
+
+      <!-- Preguntas -->
+      <div class="step" id="s1"><div class="prog"><span>01 / 04</span></div><div class="prog-bar"><span></span></div><h2>¿Qué necesitas en este momento?</h2><div class="opts" data-k="necesidad"></div><button class="back" data-b type="button">← Atrás</button></div>
+      <div class="step" id="s2"><div class="prog"><span>02 / 04</span></div><div class="prog-bar"><span></span></div><h2>¿Cuál es tu mayor dificultad?</h2><div class="opts" data-k="dificultad"></div><button class="back" data-b type="button">← Atrás</button></div>
+      <div class="step" id="s3"><div class="prog"><span>03 / 04</span></div><div class="prog-bar"><span></span></div><h2>¿En qué etapa está tu negocio?</h2><div class="opts" data-k="etapa"></div><button class="back" data-b type="button">← Atrás</button></div>
+      <div class="step" id="s4"><div class="prog"><span>04 / 04</span></div><div class="prog-bar"><span></span></div><h2>¿Cuándo quieres comenzar?</h2><div class="opts" data-k="inicio"></div><button class="back" data-b type="button">← Atrás</button></div>
+
+      <!-- Resultado -->
+      <div class="step" id="s5" tabindex="-1">
+        <span class="form-label-top" id="rUrg"></span>
+        <h2 id="rTit"></h2>
+        <p class="form-intro" id="rTxt"></p>
+        <div id="rPasos"></div>
+        <div class="next"><small>Mi recomendación</small><span id="rNext"></span></div>
+        <div class="prod-card" id="prod"><img id="prodImg" src="diosa-playbook.jpg" alt="" width="72"><div><small id="prodLbl">Mientras te escribo</small><strong id="prodName">DIOSA — El Playbook</strong><span id="prodDesc">Convierte lo que sabes en una oferta y consigue tus primeras ventas.</span><a class="prod-link" id="prodLink" href="https://beacons.ai/katherinnenz" target="_blank" rel="noopener">Verlo ahora →</a></div></div>
+        <a class="button wa-btn" id="rWa" target="_blank" rel="noopener">Recibir mi resultado por WhatsApp →</a>
+        <p class="form-footnote">Gratis · Reviso tu solicitud y te escribo</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="trust-strip">
+  <div class="container trust-grid">
+    <div class="trust-item"><span class="trust-icon">◎</span><div><strong>Diagnóstico gratis</strong>Sin compromiso</div></div>
+    <div class="trust-item"><span class="trust-icon">✎</span><div><strong>Revisión personal</strong>Leo tu solicitud yo misma</div></div>
+    <div class="trust-item"><span class="trust-icon">→</span><div><strong>Siguiente paso claro</strong>Te digo por dónde empezar</div></div>
+  </div>
+</section>
+
+<section class="guide-section">
+  <div class="container section-grid">
+    <div class="guide-visual">
+      <div class="guide-orbit"></div>
+      <div class="guide-cover"><span class="mini-brand">KATHERINNE NÚÑEZ</span><h3>Diagnóstico<br>de <span>marca</span></h3><p>Dónde estás, qué sigue y cómo empezar.</p></div>
+      <div class="guide-decoration">✦</div>
+    </div>
+    <div class="guide-copy">
+      <div class="section-kicker">Qué recibes</div>
+      <h2>Claridad para tu marca, <span>en un minuto.</span></h2>
+      <p>No es un formulario de contacto cualquiera. Según lo que respondas, te muestro qué es lo que más te está frenando y qué hacer primero.</p>
+      <ul class="guide-benefits">
+        <li><span>✓</span>Tu punto de partida: oferta, mensaje, conversión o dirección</li>
+        <li><span>✓</span>Tres primeros pasos que puedes aplicar hoy</li>
+        <li><span>✓</span>Mi recomendación de siguiente paso, según lo que necesitas</li>
+      </ul>
+      <a class="button guide-cta" href="#form">Hacer mi diagnóstico →</a>
+    </div>
+  </div>
+</section>
+
+<section class="products" id="productos">
+  <div class="container">
+    <div class="products-head">
+      <div class="eyebrow"><span class="eyebrow-dot"></span>Productos digitales</div>
+      <h2>Si prefieres avanzar a tu ritmo</h2>
+      <p>No todo el mundo necesita una sesión. Si ya sabes cosas valiosas y quieres convertirlas en ingresos, empieza por aquí.</p>
+    </div>
+    <div class="product-grid">
+      <article class="product-item">
+        <div class="product-thumb"><img src="diosa-playbook.jpg" alt="Portada de DIOSA — El Playbook" loading="lazy"></div>
+        <span class="product-badge">Para vender</span>
+        <h3>DIOSA — El Playbook</h3>
+        <p>Convierte lo que sabes en una oferta y consigue tus primeras ventas.</p>
+        <a class="button" href="https://beacons.ai/katherinnenz" target="_blank" rel="noopener">Ver el Playbook →</a>
+      </article>
+      <article class="product-item">
+        <div class="product-thumb"><img src="https://cdn.beacons.ai/user_content/MNCUzPXyJJX8oXXEAzmQHj3aQ7D3/referenced_images/a8c6173c-3869-4ecb-882b-85cb8f3f538e__store__product-image__20405ac9-2c9f-4f6b-860f-07e82370d4a5__aec4290d-97e2-41e8-a47f-0b63fd40b3d2.webp?t=1792138650152" alt="Pack: Tu marca empieza aquí" loading="lazy"></div>
+        <span class="product-badge">Pack</span>
+        <h3>Pack: Tu marca empieza aquí</h3>
+        <p>Un pack para dar el primer paso con tu marca.</p>
+        <a class="button" href="https://shop.beacons.ai/katherinnenz/20405ac9-2c9f-4f6b-860f-07e82370d4a5" target="_blank" rel="noopener">Ver el pack →</a>
+      </article>
+    </div>
+    <p class="products-more"><a class="text-link" href="https://beacons.ai/katherinnenz" target="_blank" rel="noopener">Ver todos mis productos digitales →</a></p>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-main">
+      <div class="footer-copy">Katherinne Núñez<br>Estrategia, contenido y marca personal</div>
+      <div class="footer-links"><a href="mailto:hola@katherinnenunez.com">hola@katherinnenunez.com</a><a href="https://beacons.ai/katherinnenz" target="_blank" rel="noopener">Productos digitales</a><a href="https://wa.link/qzmd3u" target="_blank" rel="noopener">WhatsApp</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 Katherinne Núñez. Todos los derechos reservados.</span></div>
+  </div>
+</footer>
+
+<script>
+// === AJUSTA ESTO ===
+const ACCESS_KEY = "TU_ACCESS_KEY_DE_SPLITFORMS"; // la llave que te da Splitforms en su panel
+const SUPABASE_URL = "https://kdxfiqapaptdmjmjpfrh.supabase.co";   // Project URL de Supabase, ej. https://abcd1234.supabase.co
+const SUPABASE_KEY = "sb_publishable_mI0Qqqjp-40B2_OCKqQyTA_6e_1DmGE";   // clave "anon / publishable" (NUNCA la service_role)
+const FORM_URL = "https://splitforms.com/api/submit"; // Splitforms (si algún día cambias a Web3Forms: https://api.web3forms.com/submit)
+const SEND_EARLY = false;  // false = el correo llega solo cuando terminan (Supabase guarda todo igual). true = también un correo al dejar los datos
+const LEAD_ID = (window.crypto&&crypto.randomUUID)?crypto.randomUUID():String(Date.now())+Math.random().toString(16).slice(2);
+const WA_LINK    = "https://wa.link/qzmd3u";      // se usa si WA_NUMBER está vacío
+const WA_NUMBER  = "";                            // opcional: tu número solo con dígitos (ej. 18095551234) para que el mensaje llegue ya escrito
+
+const PROD = {
+  playbook:{name:"DIOSA — El Playbook",desc:"Convierte lo que sabes en una oferta y consigue tus primeras ventas.",url:"https://beacons.ai/katherinnenz",img:"diosa-playbook.jpg"},
+  pack:{name:"Pack: Tu marca empieza aquí",desc:"Un pack para dar el primer paso con tu marca.",url:"https://shop.beacons.ai/katherinnenz/20405ac9-2c9f-4f6b-860f-07e82370d4a5",img:"https://cdn.beacons.ai/user_content/MNCUzPXyJJX8oXXEAzmQHj3aQ7D3/referenced_images/a8c6173c-3869-4ecb-882b-85cb8f3f538e__store__product-image__20405ac9-2c9f-4f6b-860f-07e82370d4a5__aec4290d-97e2-41e8-a47f-0b63fd40b3d2.webp?t=1792138650152"}
+};
+const Q = {
+  necesidad:["Una asesoría estratégica 1:1","Que alguien gestione mi marca o contenido","Aprender con plantillas, guías o cursos","Todavía no sé qué necesito"],
+  dificultad:["No sé qué vender","Mi marca no comunica su valor","Publico, pero no atraigo clientes","No tengo una estrategia clara"],
+  etapa:["Estoy comenzando","Ya vendo productos o servicios","Tengo un negocio establecido y quiero crecer"],
+  inicio:["Esta semana","En los próximos 30 días","Estoy explorando opciones"]
+};
+const DIAG = {
+  "No sé qué vender":{t:"Tu punto de partida es la oferta",x:"Antes de publicar más, hay que tener claro qué problema resuelves y por qué alguien te pagaría. Sin eso, todo el contenido se siente suelto.",p:["Escribe en una frase a quién ayudas y qué logra contigo.","Anota 3 cosas por las que la gente ya te ha pedido ayuda.","Elige una sola y ponle precio."]},
+  "Mi marca no comunica su valor":{t:"Tu punto de partida es el mensaje",x:"Tu trabajo puede ser bueno, pero si en 5 segundos no se entiende qué haces y para quién, la gente pasa de largo.",p:["Reescribe tu bio con el resultado que das, no con tu título.","Mira tus últimos 9 posts: ¿se entiende qué vendes?","Pon un caso o testimonio real a la vista."]},
+  "Publico, pero no atraigo clientes":{t:"Tu punto de partida es la conversión",x:"Ya tienes movimiento. Lo que falta es un camino claro entre que alguien te ve y que te escribe.",p:["Dale a cada publicación un solo llamado a la acción.","Usa tus historias para abrir conversaciones, no solo para mostrar.","Deja en tu bio un único enlace con una única acción."]},
+  "No tengo una estrategia clara":{t:"Tu punto de partida es la dirección",x:"Sin un objetivo claro, cada decisión pesa el doble. Con una meta simple, todo lo demás se ordena.",p:["Define un solo objetivo para los próximos 30 días.","Elige 3 temas de contenido que lleven a tu oferta.","Arma un calendario semanal sencillo que puedas cumplir."]}
+};
+const NEXT = {
+  "Una asesoría estratégica 1:1":"Lo que más te sirve es una sesión 1:1 donde revisemos tu caso y salgas con un plan concreto.",
+  "Que alguien gestione mi marca o contenido":"Quieres que alguien lo lleve por ti. Lo conversamos para ver qué necesitas y si tu base está lista para delegarla.",
+  "Aprender con plantillas, guías o cursos":"Empieza con plantillas y guías para avanzar a tu ritmo. Te digo por cuáles arrancar.",
+  "Todavía no sé qué necesito":"No pasa nada. En una conversación corta te ayudo a ver cuál es el mejor camino para ti."
+};
+const ans = {}; let cur = 0;
+const $ = id => document.getElementById(id);
+const steps = [...document.querySelectorAll('.step')];
+function show(n){
+  cur=n; steps.forEach((s,i)=>s.classList.toggle('on',i===n));
+  const bar = steps[n].querySelector('.prog-bar span'); if(bar) requestAnimationFrame(()=>bar.style.width=(n/4*100)+'%');
+  $('form').scrollIntoView({behavior:'smooth',block:'start'}); if(n===5) $('s5').focus({preventScroll:true});
+}
+function fullPhone(){ return $('pref').value+' '+$('wa').value.trim(); }
+async function send(extra, mail=true){
+  const body = Object.assign({access_key:ACCESS_KEY, from_name:"Formulario Katherinne Núñez",
+    nombre:$('nombre').value.trim(), email:$('email').value.trim(), whatsapp:fullPhone(), consentimiento:"Sí", botcheck:""}, ans, extra);
+  saveLead(body);
+  if(!mail) return true;
+  try{ const r = await fetch(FORM_URL,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(body)}); return (await r.json()).success; }
+  catch(e){ return false; }
+}
+function sbHeaders(){ const h={apikey:SUPABASE_KEY,'Content-Type':'application/json',Prefer:'return=minimal'}; if(SUPABASE_KEY.startsWith('eyJ')) h.Authorization='Bearer '+SUPABASE_KEY; return h; }
+async function saveLead(b){
+  if(!SUPABASE_URL||!SUPABASE_KEY) return;
+  const row={lead_id:LEAD_ID,etapa_flujo:b.diagnostico?'completo':'inicio',nombre:b.nombre,email:b.email,whatsapp:b.whatsapp,
+    necesidad:b.necesidad||null,dificultad:b.dificultad||null,etapa:b.etapa||null,inicio:b.inicio||null,diagnostico:b.diagnostico||null};
+  try{ await fetch(SUPABASE_URL+'/rest/v1/leads',{method:'POST',headers:sbHeaders(),body:JSON.stringify(row)}); }catch(e){}
+}
+document.querySelectorAll('.opts').forEach(box=>{
+  const k = box.dataset.k;
+  Q[k].forEach((txt,i)=>{
+    const b = document.createElement('button'); b.type='button'; b.className='opt'; b.setAttribute('aria-pressed','false');
+    const l = document.createElement('span'); l.className='l'; l.textContent='ABCD'[i];
+    const t = document.createElement('span'); t.textContent = txt; b.append(l,t);
+    b.onclick = ()=>{ ans[k]=txt;
+      box.querySelectorAll('.opt').forEach(x=>{x.classList.toggle('sel',x===b); x.setAttribute('aria-pressed',x===b)});
+      if(k==='inicio') finish(); else setTimeout(()=>show(cur+1),220); };
+    box.appendChild(b);
+  });
+});
+document.querySelectorAll('[data-b]').forEach(b=>b.onclick=()=>show(cur-1));
+
+$('go').onclick = ()=>{
+  const e=$('e0'); e.textContent='';
+  if(!$('nombre').value.trim()){e.textContent='Escribe tu nombre.';return;}
+  if(!/^\S+@\S+\.\S+$/.test($('email').value.trim())){e.textContent='Revisa tu correo, parece incompleto.';return;}
+  if($('wa').value.replace(/\D/g,'').length<7){e.textContent='Escribe tu número de WhatsApp.';return;}
+  if(!$('consent').checked){e.textContent='Marca la casilla para poder enviarte el resultado.';return;}
+  send({subject:"Nuevo contacto (empezó el diagnóstico)"}, SEND_EARLY); // guarda el contacto aunque abandone
+  show(1);
+};
+function finish(){
+  const d = DIAG[ans.dificultad], urgente = ans.inicio==="Esta semana";
+  $('rUrg').textContent = urgente ? "Quieres empezar esta semana" : (ans.inicio==="En los próximos 30 días" ? "Quieres empezar en 30 días" : "Estás explorando");
+  $('rTit').textContent = d.t; $('rTxt').textContent = d.x;
+  $('rPasos').innerHTML='';
+  d.p.forEach((p,i)=>{const r=document.createElement('div'); r.className='paso'; const n=document.createElement('b'); n.textContent='0'+(i+1); const t=document.createElement('span'); t.textContent=p; r.append(n,t); $('rPasos').appendChild(r);});
+  $('rNext').textContent = NEXT[ans.necesidad];
+  const aprender = ans.necesidad==="Aprender con plantillas, guías o cursos";
+  $('prodLbl').textContent = aprender ? "Hecho para lo que buscas" : "Mientras te escribo";
+  if(aprender) $('rWa').before($('prod')); else $('s5').appendChild($('prod'));
+  const P = ans.dificultad==="No sé qué vender" ? PROD.playbook : PROD.pack;
+  $('prodImg').src=P.img; $('prodImg').alt=P.name; $('prodName').textContent=P.name; $('prodDesc').textContent=P.desc; $('prodLink').href=P.url;
+  const nombre = $('nombre').value.trim().split(' ')[0];
+  const msg = `Hola Katherinne, soy ${nombre}. Ya completé mi diagnóstico (${ans.dificultad.toLowerCase()}). Quiero ver mi resultado y el siguiente paso.`;
+  $('rWa').href = WA_NUMBER ? `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}` : WA_LINK;
+  show(5);
+  send({subject:(urgente?"[URGENTE] ":"")+"Solicitud completa: Trabajemos en tu marca", diagnostico:d.t});
+}
+</script>
+</body>
+</html>
