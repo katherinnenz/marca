@@ -410,7 +410,7 @@ function finish(){
   $('rWa').href = WA_NUMBER ? `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}` : WA_LINK;
   const quiereAsesoria = ans.necesidad==="Una asesoría estratégica 1:1";
   if(quiereAsesoria){
-    const u=new URL(PRECALL_URL,location.href); u.searchParams.set('name',$('nombre').value.trim()); u.searchParams.set('email',$('email').value.trim()); u.searchParams.set('wa',fullPhone());
+    const u=new URL(PRECALL_URL,location.href); u.searchParams.set('name',$('nombre').value.trim()); u.searchParams.set('email',$('email').value.trim()); u.searchParams.set('wa',fullPhone()); u.searchParams.set('ref','asesoria');
     $('rBook').href=u.toString(); $('rBook').style.display='inline-flex'; $('rWa').classList.add('ghost');
   } else { $('rBook').style.display='none'; $('rWa').classList.remove('ghost'); }
   show(5);
