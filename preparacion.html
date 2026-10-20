@@ -53,7 +53,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold)}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 .files{list-style:none;margin:10px 0 0;display:grid;gap:6px}.files li{font-size:12px;color:#EFE9D6;background:rgba(15,16,8,.3);border:1px solid var(--border);border-radius:8px;padding:8px 12px}
 .or{text-align:center;color:#A39C85;font-size:12px;margin-top:12px}
-#pick,#waSend{margin-top:10px}
+#pick{margin-top:10px}
 .sr{position:absolute;width:1px;height:1px;min-height:0;padding:0;border:0;opacity:0;overflow:hidden;clip:rect(0 0 0 0)}
 #pick{cursor:pointer}
 </style>
@@ -79,13 +79,10 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold)}
       <p class="sec">Tu Instagram</p>
       <div class="field"><label for="instagram">Tu usuario de Instagram</label><input id="instagram" placeholder="@tuusuario" autocapitalize="none"></div>
       <div class="field"><label>Capturas de tus estadísticas (últimos 30 días)</label>
-        <div class="hint">Súbelas aquí (hasta 4 imágenes) o envíamelas por WhatsApp. Elige una de las dos.</div>
+        <div class="hint">Sube hasta 4 imágenes (capturas de pantalla).</div>
         <input id="files" class="sr" type="file" accept="image/*" multiple>
         <label for="files" class="btn ghost" id="pick" role="button" tabindex="0">📎 Elegir capturas</label>
         <ul class="files" id="fileList"></ul>
-        <div class="or">o</div>
-        <a class="btn ghost" id="waSend" href="https://wa.link/qzmd3u" target="_blank" rel="noopener">Enviar mis capturas por WhatsApp</a>
-        <label class="consent" id="waOk" style="display:none"><input type="checkbox" id="waDone"><span>Ya envié mis capturas por WhatsApp</span></label>
       </div>
 
       <p class="sec">Tu negocio</p>
@@ -104,7 +101,6 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold)}
       <h2>¡Listo, gracias!</h2>
       <p id="doneTxt">Ya tengo tus datos. Último paso: elige el día y la hora de tu llamada gratis de 30 minutos.</p>
       <a class="btn" id="book" target="_blank" rel="noopener" style="display:none">Elegir mi horario →</a>
-      <a class="btn ghost" id="wab" target="_blank" rel="noopener">Escribirme por WhatsApp</a>
     </div>
   </div>
 </main>
@@ -116,8 +112,6 @@ const ACCESS_KEY   = "a7f931ad9bae4b66b8a254ad8a107539";
 const FORM_URL     = "https://splitforms.com/api/submit";
 const SUPABASE_URL = "https://kdxfiqapaptdmjmjpfrh.supabase.co";
 const SUPABASE_KEY = "sb_publishable_mI0Qqqjp-40B2_OCKqQyTA_6e_1DmGE";
-const WA_LINK      = "https://wa.link/qzmd3u";
-const WA_NUMBER    = "";  // solo dígitos con código de país. Con tu número, el botón de WhatsApp abre el chat con el mensaje ya escrito
 const BUCKET = "insights", MAX_FILES = 4;
 
 const $ = id => document.getElementById(id);
@@ -133,12 +127,6 @@ $('files').onchange = () => {
   $('fileList').innerHTML='';
   picked.forEach(f=>{const li=document.createElement('li'); li.textContent='✓ '+f.name; $('fileList').appendChild(li);});
   $('pick').textContent = picked.length ? '📎 Cambiar capturas' : '📎 Elegir capturas';
-};
-$('waSend').onclick = () => {
-  const nom=$('nombre').value.trim().split(' ')[0]||'', ig=$('instagram').value.trim();
-  const msg='Hola Katherinne, soy '+nom+(ig?' ('+ig+')':'')+'. Te envío las capturas de mis estadísticas de Instagram (últimos 30 días) para nuestra llamada:';
-  $('waSend').href = WA_NUMBER ? 'https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(msg) : WA_LINK;
-  $('waOk').style.display='flex';
 };
 function sbH(ct){ const h={apikey:SUPABASE_KEY}; if(ct) h['Content-Type']=ct; if(SUPABASE_KEY.startsWith('eyJ')) h.Authorization='Bearer '+SUPABASE_KEY; return h; }
 async function compress(file){ // reduce el tamaño para que suba rápido, incluso con datos móviles
@@ -167,7 +155,7 @@ $('f').addEventListener('submit', async e=>{
   if(!/^\S+@\S+\.\S+$/.test(v.email)){err.textContent='Revisa tu correo, parece incompleto.';$('email').focus();return;}
   if(v.wa.replace(/\D/g,'').length<10){err.textContent='Escribe tu WhatsApp con código de país.';$('wa').focus();return;}
   if(!v.instagram){err.textContent='Escribe tu usuario de Instagram.';$('instagram').focus();return;}
-  if(!picked.length && !$('waDone').checked){err.textContent='Sube tus capturas o envíalas por WhatsApp y marca la casilla.';return;}
+  if(!picked.length){err.textContent='Sube al menos una captura de tus estadísticas.';return;}
   if(!v.resolver){err.textContent='Cuéntame qué te gustaría resolver en la llamada.';$('resolver').focus();return;}
   if(!$('consent').checked){err.textContent='Marca la casilla para poder enviar tus datos.';return;}
 
@@ -175,20 +163,17 @@ $('f').addEventListener('submit', async e=>{
   const handle=v.instagram.toLowerCase().replace(/[^a-z0-9._-]/g,'').slice(0,30)||'sin-usuario';
   const folder=Date.now()+'_'+handle;
   const subidas = picked.length ? await uploadAll(folder) : 0;
-  const viaWa = $('waDone').checked;
-  if(picked.length && subidas===0 && !viaWa){
-    err.textContent='No pude subir las imágenes. Envíalas con el botón de WhatsApp y marca la casilla.';
-    $('waOk').style.display='flex'; $('btn').disabled=false; $('btn').textContent='Enviar y elegir mi horario →'; return;
+  if(subidas===0){
+    err.textContent='No pude subir las imágenes. Revisa tu conexión e inténtalo de nuevo. Si sigue fallando, escríbeme por WhatsApp.';
+    $('btn').disabled=false; $('btn').textContent='Enviar y elegir mi horario →'; return;
   }
-  const row={nombre:v.nombre,email:v.email,whatsapp:v.wa,instagram:v.instagram,oferta:v.oferta,meta:v.meta,resolver:v.resolver,capturas:subidas,carpeta:subidas?folder:null,via_whatsapp:viaWa};
+  const row={nombre:v.nombre,email:v.email,whatsapp:v.wa,instagram:v.instagram,oferta:v.oferta,meta:v.meta,resolver:v.resolver,capturas:subidas,carpeta:folder};
   const sb=fetch(SUPABASE_URL+'/rest/v1/previa_llamada',{method:'POST',headers:Object.assign(sbH('application/json'),{Prefer:'return=minimal'}),body:JSON.stringify(row)}).catch(()=>{});
-  const mail=fetch(FORM_URL,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(Object.assign({access_key:ACCESS_KEY,from_name:'Preparación de llamada',subject:'Preparación de llamada: '+v.instagram+' ('+v.nombre+')',botcheck:'',ver_capturas:subidas?('Supabase > Storage > '+BUCKET+' > '+folder):'(las envió por WhatsApp)'},row))}).then(r=>r.json()).catch(()=>({success:false}));
+  const mail=fetch(FORM_URL,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(Object.assign({access_key:ACCESS_KEY,from_name:'Preparación de llamada',subject:'Preparación de llamada: '+v.instagram+' ('+v.nombre+')',botcheck:'',ver_capturas:'Supabase > Storage > '+BUCKET+' > '+folder},row))}).then(r=>r.json()).catch(()=>({success:false}));
   const [,res]=await Promise.all([sb,mail]);
   if(res && res.success===false){ err.textContent='No se pudo enviar. Revisa tu conexión e inténtalo de nuevo.'; $('btn').disabled=false; $('btn').textContent='Enviar y elegir mi horario →'; return; }
 
   // Mostrar el enlace de la agenda solo ahora
-  const msg='Hola Katherinne, soy '+v.nombre.split(' ')[0]+'. Ya llené el formulario de preparación para mi llamada.';
-  $('wab').href = WA_NUMBER ? 'https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(msg) : WA_LINK;
   if(BOOKING_URL){
     const u=new URL(BOOKING_URL); if(!/google/.test(u.hostname)){ u.searchParams.set('name',v.nombre); u.searchParams.set('email',v.email); } // Google no rellena datos por enlace
     $('book').href=u.toString(); $('book').style.display='flex';
