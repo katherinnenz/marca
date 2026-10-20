@@ -187,7 +187,7 @@ $('f').addEventListener('submit', async e=>{
   // Mostrar el enlace de la agenda solo ahora
   const msg='Hola Katherinne, soy '+v.nombre.split(' ')[0]+'. Ya llené el formulario de preparación para mi llamada.';
   $('wab').href = WA_NUMBER ? 'https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(msg) : WA_LINK;
-  if(BOOKING_URL){
+  if(https://calendar.app.google/DqdrZqjmGmy42KsUA){
     const u=new URL(BOOKING_URL); u.searchParams.set('name',v.nombre); u.searchParams.set('email',v.email);
     $('book').href=u.toString(); $('book').style.display='flex';
   } else { $('doneTxt').textContent='Ya tengo tus datos. Te escribo por WhatsApp o correo para coordinar el día y la hora de tu llamada.'; }
