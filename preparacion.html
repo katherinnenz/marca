@@ -54,6 +54,8 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold)}
 .files{list-style:none;margin:10px 0 0;display:grid;gap:6px}.files li{font-size:12px;color:#EFE9D6;background:rgba(15,16,8,.3);border:1px solid var(--border);border-radius:8px;padding:8px 12px}
 .or{text-align:center;color:#A39C85;font-size:12px;margin-top:12px}
 #pick,#waSend{margin-top:10px}
+.sr{position:absolute;width:1px;height:1px;min-height:0;padding:0;border:0;opacity:0;overflow:hidden;clip:rect(0 0 0 0)}
+#pick{cursor:pointer}
 </style>
 </head>
 <body>
@@ -78,11 +80,11 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold)}
       <div class="field"><label for="instagram">Tu usuario de Instagram</label><input id="instagram" placeholder="@tuusuario" autocapitalize="none"></div>
       <div class="field"><label>Capturas de tus estadísticas (últimos 30 días)</label>
         <div class="hint">Súbelas aquí (hasta 4 imágenes) o envíamelas por WhatsApp. Elige una de las dos.</div>
-        <input id="files" type="file" accept="image/*" multiple hidden>
-        <button type="button" class="btn ghost" id="pick">📎 Elegir capturas</button>
+        <input id="files" class="sr" type="file" accept="image/*" multiple>
+        <label for="files" class="btn ghost" id="pick" role="button" tabindex="0">📎 Elegir capturas</label>
         <ul class="files" id="fileList"></ul>
         <div class="or">o</div>
-        <a class="btn ghost" id="waSend" target="_blank" rel="noopener">Enviar mis capturas por WhatsApp</a>
+        <a class="btn ghost" id="waSend" href="https://wa.link/qzmd3u" target="_blank" rel="noopener">Enviar mis capturas por WhatsApp</a>
         <label class="consent" id="waOk" style="display:none"><input type="checkbox" id="waDone"><span>Ya envié mis capturas por WhatsApp</span></label>
       </div>
 
@@ -109,7 +111,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold)}
 
 <script>
 // === AJUSTA ESTO (usa los mismos datos que en index.html) ===
-const BOOKING_URL  = "";  // enlace de tu agenda de Google Calendar / Cal.com. Aparece solo después de llenar el formulario
+const BOOKING_URL  = "https://calendar.app.google/MkrYw4qNdkF5Yocx7";  // enlace de tu agenda de Google Calendar / Cal.com. Aparece solo después de llenar el formulario
 const ACCESS_KEY   = "a7f931ad9bae4b66b8a254ad8a107539";
 const FORM_URL     = "https://splitforms.com/api/submit";
 const SUPABASE_URL = "https://kdxfiqapaptdmjmjpfrh.supabase.co";
@@ -125,7 +127,7 @@ if(q.get('email')) $('email').value = q.get('email');
 if(q.get('wa')) $('wa').value = q.get('wa');
 
 let picked = [];
-$('pick').onclick = () => $('files').click();
+$('pick').onkeydown = e => { if(e.key==='Enter'||e.key===' '){ e.preventDefault(); $('files').click(); } };
 $('files').onchange = () => {
   picked = [...$('files').files].filter(f=>f.type.startsWith('image/')).slice(0,MAX_FILES);
   $('fileList').innerHTML='';
@@ -187,8 +189,8 @@ $('f').addEventListener('submit', async e=>{
   // Mostrar el enlace de la agenda solo ahora
   const msg='Hola Katherinne, soy '+v.nombre.split(' ')[0]+'. Ya llené el formulario de preparación para mi llamada.';
   $('wab').href = WA_NUMBER ? 'https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(msg) : WA_LINK;
-  if(https://calendar.app.google/DqdrZqjmGmy42KsUA){
-    const u=new URL(BOOKING_URL); u.searchParams.set('name',v.nombre); u.searchParams.set('email',v.email);
+  if(BOOKING_URL){
+    const u=new URL(BOOKING_URL); if(!/google/.test(u.hostname)){ u.searchParams.set('name',v.nombre); u.searchParams.set('email',v.email); } // Google no rellena datos por enlace
     $('book').href=u.toString(); $('book').style.display='flex';
   } else { $('doneTxt').textContent='Ya tengo tus datos. Te escribo por WhatsApp o correo para coordinar el día y la hora de tu llamada.'; }
   $('f').style.display='none'; $('done').style.display='block'; $('done').focus(); window.scrollTo({top:0,behavior:'smooth'});
